@@ -115,7 +115,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                   return
               }
               let storyboard = UIStoryboard(name: "Main", bundle: nil)
-              let next = storyboard.instantiateViewController(withIdentifier: "SearchVC") as! SearchViewController
+              let next = storyboard.instantiateViewController(withIdentifier: "TabBarVC") as! TabBarViewController
               next.modalPresentationStyle = .fullScreen
               self.present(next, animated: true, completion: nil)
               ProgressHUD.dismiss()

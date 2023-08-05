@@ -74,8 +74,27 @@ struct InventoryListItemView: View {
             VStack(alignment: .leading) {
                 Text(item.name)
                     .font(.headline)
-                Text("Price: \(item.price)")
-                    .font(.subheadline)
+                Group {
+                    Text("Description: ")
+                        .font(.subheadline)
+                        .fontWeight(.semibold) +
+                    Text("\(item.description)")
+                        .font(.subheadline)
+                }
+                Group {
+                    Text("Size: ")
+                        .font(.subheadline)
+                        .fontWeight(.semibold) +
+                    Text("\(item.size) MB")
+                        .font(.subheadline)
+                }
+                Group {
+                    Text("Price: ")
+                        .font(.subheadline)
+                        .fontWeight(.semibold) +
+                    Text("$\(item.price)")
+                        .font(.subheadline)
+                }
             }
         }
     }

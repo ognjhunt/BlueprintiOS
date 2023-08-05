@@ -14,6 +14,9 @@ struct InventoryFormView: View {
     @StateObject var vm = InventoryFormViewModel()
     @Environment(\.dismiss) var dismiss
     
+    // Create a @State variable for sizeString
+        @State private var sizeString: String = ""
+    
     var body: some View {
         Form {
             List {
@@ -55,8 +58,8 @@ struct InventoryFormView: View {
             }
             
             ToolbarItem(placement: .confirmationAction) {
-                //change to save in edit mode
-                Button("Upload") {
+                //change to upload in other mode
+                Button("Save") {
                     do {
                         try vm.save()
                         dismiss()
@@ -96,6 +99,7 @@ struct InventoryFormView: View {
         Section {
             TextField("Name", text: $vm.name)
             TextField("Descripton", text: $vm.description)
+            
             TextField("Price", text: Binding<String>(
                         get: { String(format: "%.2f", vm.price) },
                         set: { newValue in
@@ -163,6 +167,11 @@ struct InventoryFormView: View {
                     }
                     
                     Text("\(vm.byteCountFormatter.string(fromByteCount: progress.completedUnitCount)) / \(vm.byteCountFormatter.string(fromByteCount: progress.totalUnitCount))")
+                        .onAppear {
+                            // Assign the value to the sizeString variable
+                            sizeString = vm.byteCountFormatter.string(fromByteCount: progress.totalUnitCount)
+                        }
+                    
                 }
             }
         }

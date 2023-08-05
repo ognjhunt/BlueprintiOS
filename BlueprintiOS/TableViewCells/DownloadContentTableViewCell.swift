@@ -107,7 +107,7 @@ class DownloadContentTableViewCell: UITableViewCell {
             } else {
                 let price = model?.price ?? 0
                 if price == 0 {
-                    self.downloadButton.setTitle("Download", for: .normal) //.text = "FREE"
+                    self.downloadButton.setTitle("Add to Library", for: .normal) //.text = "FREE"
                 } else {
                     self.downloadButton.setTitle("Purchase (\(price) credits)", for: .normal)
                 }

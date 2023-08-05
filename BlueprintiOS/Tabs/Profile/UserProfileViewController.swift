@@ -537,57 +537,70 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
                         self.subscribeBtn.backgroundColor = .systemGray6
                         self.subscribeBtn.tintColor = .darkGray
                         //                        self.pointsButton.title = "\(user?.points ?? 0)"
+//                        let myButton = UIButton(type: .system)
+//                        myButton.setImage(UIImage(systemName: "diamond.fill"), for: .normal) //(UIImage(systemName: "bitcoinsign.circle.fill"), for: .normal)
+//                        myButton.setTitle(" \(user?.points ?? 0)", for: .normal)
+//                        myButton.setTitleColor(.label, for: .normal)
+//                        myButton.titleLabel?.font = UIFont.systemFont(ofSize: 14.5, weight: .semibold)
+//                        myButton.imageView?.contentMode = .scaleAspectFit
+//                        myButton.tintColor = .systemYellow
+//                        myButton.imageEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+//                        //  myButton.titleLabel?.textColor = .black
+//                        myButton.sizeToFit()
+//                        //                        myButton.layer.borderWidth = 0.7
+//                        //                        myButton.frame.size.height = myButton.frame.size.height + 15
+//                        //
+//                        //                        myButton.layer.cornerRadius = (myButton.frame.size.height / 2)
+//                        //                        myButton.frame.size.width = myButton.frame.size.width + 20
+//                        //                        myButton.layer.borderColor = UIColor.label.cgColor
+//                        myButton.addTarget(self, action: #selector(self.goToPoints), for: .touchUpInside)
+//                        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: myButton)
+                        
                         let myButton = UIButton(type: .system)
-                        myButton.setImage(UIImage(systemName: "diamond.fill"), for: .normal) //(UIImage(systemName: "bitcoinsign.circle.fill"), for: .normal)
-                        myButton.setTitle(" \(user?.points ?? 0)", for: .normal)
-                        myButton.setTitleColor(.label, for: .normal)
-                        myButton.titleLabel?.font = UIFont.systemFont(ofSize: 14.5, weight: .semibold)
+                      //  myButton.setImage(UIImage(systemName: "diamond.fill"), for: .normal) //(UIImage(systemName: "bitcoinsign.circle.fill"), for: .normal)
+                        myButton.setTitle("Upgrade to Pro", for: .normal)
+                        myButton.setTitleColor(.darkGray, for: .normal)
+                        myButton.titleLabel?.font = UIFont.systemFont(ofSize: 13.5, weight: .semibold)
                         myButton.imageView?.contentMode = .scaleAspectFit
-                        myButton.tintColor = .systemYellow
-                        myButton.imageEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+                     //   myButton.tintColor = .systemYellow
+                     //   myButton.imageEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
                         //  myButton.titleLabel?.textColor = .black
                         myButton.sizeToFit()
-                        //                        myButton.layer.borderWidth = 0.7
-                        //                        myButton.frame.size.height = myButton.frame.size.height + 15
-                        //
-                        //                        myButton.layer.cornerRadius = (myButton.frame.size.height / 2)
-                        //                        myButton.frame.size.width = myButton.frame.size.width + 20
-                        //                        myButton.layer.borderColor = UIColor.label.cgColor
-                        myButton.addTarget(self, action: #selector(self.goToPoints), for: .touchUpInside)
+                        myButton.addTarget(self, action: #selector(self.goToSubscription), for: .touchUpInside)
                         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: myButton)
                         
                         
                         if user?.points ?? 0 < 500 {
-                            //                            self.profPicImageView.layer.borderWidth = 4
-                            //                            self.profPicImageView.layer.borderColor = UIColor.white.cgColor
+                            self.profPicImageView.layer.borderWidth = 2
+                            self.profPicImageView.layer.borderColor = UIColor.black.cgColor
                         } else if user?.points ?? 0 > 500 && user?.points ?? 0 < 1500 {
-                            self.profPicImageView.layer.borderWidth = 3
-                            self.profPicImageView.layer.borderColor = UIColor.systemBlue.cgColor
+                            self.profPicImageView.layer.borderWidth = 2
+                            self.profPicImageView.layer.borderColor = UIColor.black.cgColor//UIColor.systemBlue.cgColor
                             let tap = UITapGestureRecognizer(target: self, action: #selector(self.tierInfoAlert))
                             self.profPicImageView.addGestureRecognizer(tap)
                         } else if user?.points ?? 0 > 1500 && user?.points ?? 0 < 5000 {
-                            self.profPicImageView.layer.borderWidth = 3
-                            self.profPicImageView.layer.borderColor = UIColor.green.cgColor
+                            self.profPicImageView.layer.borderWidth = 2
+                            self.profPicImageView.layer.borderColor = UIColor.black.cgColor// UIColor.green.cgColor
                             let tap = UITapGestureRecognizer(target: self, action: #selector(self.tierInfoAlert))
                             self.profPicImageView.addGestureRecognizer(tap)
                         } else if user?.points ?? 0 > 5000 && user?.points ?? 0 < 10000 {
-                            self.profPicImageView.layer.borderWidth = 3
-                            self.profPicImageView.layer.borderColor = UIColor.red.cgColor
+                            self.profPicImageView.layer.borderWidth = 2
+                            self.profPicImageView.layer.borderColor = UIColor.black.cgColor//UIColor.red.cgColor
                             let tap = UITapGestureRecognizer(target: self, action: #selector(self.tierInfoAlert))
                             self.profPicImageView.addGestureRecognizer(tap)
                         } else if user?.points ?? 0 > 10000 && user?.points ?? 0 < 25000 {
-                            self.profPicImageView.layer.borderWidth = 3
-                            self.profPicImageView.layer.borderColor = UIColor.systemYellow.cgColor
+                            self.profPicImageView.layer.borderWidth = 2
+                            self.profPicImageView.layer.borderColor = UIColor.black.cgColor//UIColor.systemYellow.cgColor
                             let tap = UITapGestureRecognizer(target: self, action: #selector(self.tierInfoAlert))
                             self.profPicImageView.addGestureRecognizer(tap)
                         } else if user?.points ?? 0 > 25000 && user?.points ?? 0 < 50000 {
-                            self.profPicImageView.layer.borderWidth = 3
-                            self.profPicImageView.layer.borderColor = UIColor.systemOrange.cgColor
+                            self.profPicImageView.layer.borderWidth = 2
+                            self.profPicImageView.layer.borderColor = UIColor.black.cgColor//UIColor.systemOrange.cgColor
                             let tap = UITapGestureRecognizer(target: self, action: #selector(self.tierInfoAlert))
                             self.profPicImageView.addGestureRecognizer(tap)
                         } else  if user?.points ?? 0 > 50000 {
-                            self.profPicImageView.layer.borderWidth = 3
-                            self.profPicImageView.layer.borderColor = UIColor.label.cgColor
+                            self.profPicImageView.layer.borderWidth = 2
+                            self.profPicImageView.layer.borderColor = UIColor.black.cgColor//UIColor.label.cgColor
                             let tap = UITapGestureRecognizer(target: self, action: #selector(self.tierInfoAlert))
                             self.profPicImageView.addGestureRecognizer(tap)
                             
@@ -859,6 +872,13 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
 //        var next = storyboard.instantiateViewController(withIdentifier: "PurchasePointsVC") as! PurchasePointsViewController
 //        next.modalPresentationStyle = .fullScreen
 //        self.present(next, animated: true, completion: nil)
+    }
+    
+    @objc func goToSubscription(_ sender: UITapGestureRecognizer){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        var next = storyboard.instantiateViewController(withIdentifier: "SubscriptionVC") as! SubscriptionViewController
+        next.modalPresentationStyle = .fullScreen
+        self.present(next, animated: true, completion: nil)
     }
     
     @objc func goToEditProfile(_ sender: UITapGestureRecognizer){

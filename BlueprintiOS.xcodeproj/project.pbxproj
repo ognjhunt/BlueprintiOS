@@ -69,6 +69,7 @@
 		8959F7782A7D576F00AB3F5C /* FirebaseInstallations in Frameworks */ = {isa = PBXBuildFile; productRef = 8959F7772A7D576F00AB3F5C /* FirebaseInstallations */; };
 		8959F77A2A7D5BF300AB3F5C /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8959F7792A7D5BF300AB3F5C /* TabBarViewController.swift */; };
 		8959F77C2A7D8D1E00AB3F5C /* SearchNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8959F77B2A7D8D1E00AB3F5C /* SearchNavigationController.swift */; };
+		8959F7802A7DCD8E00AB3F5C /* SubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8959F77F2A7DCD8E00AB3F5C /* SubscriptionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +150,7 @@
 		8959F7752A7D4FE300AB3F5C /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		8959F7792A7D5BF300AB3F5C /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		8959F77B2A7D8D1E00AB3F5C /* SearchNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNavigationController.swift; sourceTree = "<group>"; };
+		8959F77F2A7DCD8E00AB3F5C /* SubscriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -270,6 +272,7 @@
 			isa = PBXGroup;
 			children = (
 				8959F7362A7D3CA400AB3F5C /* LibraryViewController.swift */,
+				8959F77F2A7DCD8E00AB3F5C /* SubscriptionViewController.swift */,
 				8959F7342A7D3C8300AB3F5C /* SettingsAndPrivacyTableViewController.swift */,
 				8959F73A2A7D3CC100AB3F5C /* EditProfileViewController.swift */,
 				8959F7382A7D3CBA00AB3F5C /* UserProfileViewController.swift */,
@@ -527,6 +530,7 @@
 				8959F7232A7D3C0A00AB3F5C /* ContentPromptTableViewCell.swift in Sources */,
 				8959F7632A7D46A400AB3F5C /* BrowseTableViewCell.swift in Sources */,
 				8959F7672A7D47A500AB3F5C /* InventoryFormVM.swift in Sources */,
+				8959F7802A7DCD8E00AB3F5C /* SubscriptionViewController.swift in Sources */,
 				8959F7152A7D3AA300AB3F5C /* FirestoreManager.swift in Sources */,
 				8959F7142A7D3AA300AB3F5C /* FirebaseStorageHelper.swift in Sources */,
 				8959F7522A7D3DFA00AB3F5C /* InventoryFormView.swift in Sources */,

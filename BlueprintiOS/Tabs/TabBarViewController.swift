@@ -45,10 +45,10 @@ class TabBarViewController: UITabBarController {
             }
         
         // Set the tab name and icon for SearchViewController
-                searchViewController.tabBarItem = UITabBarItem(title: "Search", image: UIImage(named: "magnifyingglass"), selectedImage: nil)
+                searchViewController.tabBarItem = UITabBarItem(title: "Search", image: UIImage(named: "magnifyingglass")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "magnifyingglass")?.withRenderingMode(.alwaysOriginal))
 
                 // Set the tab name and icon for UploadViewController
-                uploadViewController.tabBarItem = UITabBarItem(title: "Upload", image: UIImage(named: "plus"), selectedImage: nil)
+                uploadViewController.tabBarItem = UITabBarItem(title: "Upload", image: UIImage(named: "plus"), selectedImage: UIImage(named: "plus"))
         
        
             

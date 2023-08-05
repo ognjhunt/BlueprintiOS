@@ -20,7 +20,11 @@ class InventoryFormViewModel: ObservableObject {
     @Published var name = ""
     @Published var description = ""
     @Published var price = 0.0
-  //  @Published var quantity = 0
+    @Published var creatorId = ""
+    @Published var category = ""
+    @Published var scale = 1.0
+    @Published var size = 10.0
+    
     @Published var usdzURL: URL?
     @Published var thumbnailURL: URL?
     
@@ -56,7 +60,11 @@ class InventoryFormViewModel: ObservableObject {
             name = item.name
             description = item.description
             price = item.price
-            //quantity = item.quantity
+            creatorId = item.creatorId
+            category = item.category
+            scale = item.scale
+            size = item.size
+            
             if let usdzURL = item.usdzURL {
                 self.usdzURL = usdzURL
             }
@@ -74,13 +82,16 @@ class InventoryFormViewModel: ObservableObject {
         var item: InventoryItem
         switch formType {
         case .add:
-            item = .init(id: id, name: name, description: description, price: price)
+            item = .init(id: id, name: name, creatorId: creatorId, description: description, price: price, category: category, scale: scale, size: size)
         case .edit(let inventoryItem):
             item = inventoryItem
             item.name = name
             item.description = description
             item.price = price
-            //item.quantity = quantity
+            item.creatorId = creatorId
+            item.category = category
+            item.scale = scale
+            item.size = size
         }
         item.usdzLink = usdzURL?.absoluteString
         item.thumbnailLink = thumbnailURL?.absoluteString
@@ -88,6 +99,8 @@ class InventoryFormViewModel: ObservableObject {
         do {
             try db.document("items/\(item.id)")
                 .setData(from: item)
+//            try db.document("models/\(item.id)")
+//                .setData(from: item)
         } catch {
             self.error = error.localizedDescription
             throw error

@@ -80,8 +80,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         self.dismiss(animated: true, completion: nil)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
        // var next = storyboard.instantiateViewController(withIdentifier: "TabBarVC") as! TabBarViewController
-        var next = storyboard.instantiateViewController(withIdentifier: "SearchVC") as! SearchViewController
-
+        var next = storyboard.instantiateViewController(withIdentifier: "TabBarVC") as! TabBarViewController
         next.modalPresentationStyle = .fullScreen
         self.present(next, animated: true, completion: nil)
     }

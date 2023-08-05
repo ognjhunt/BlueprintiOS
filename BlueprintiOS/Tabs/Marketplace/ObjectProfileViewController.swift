@@ -561,7 +561,7 @@ class ObjectProfileViewController: UIViewController, QLPreviewControllerDataSour
     @objc func downloadContentAction(){
         // Check if the user is logged in
         if Auth.auth().currentUser == nil {
-            let alert = UIAlertController(title: "Create Account", message: "To download content from Blueprint's Marketplace you need to first create an account. When you create an account on Blueprint, you get 500 free credits!", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Create Account", message: "To add content to your library  you first need to create an account. When you create an account on Blueprint, you get $5.00 in credits!", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Sign Up", style: .default) { action in
                 self.goToSignUp()
             })

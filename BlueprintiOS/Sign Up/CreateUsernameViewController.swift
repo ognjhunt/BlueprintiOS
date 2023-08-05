@@ -60,7 +60,7 @@ class CreateUsernameViewController: UIViewController, UITextFieldDelegate {
                        
                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
                       // var next = storyboard.instantiateViewController(withIdentifier: "TabBarVC2") as! TabBarViewController2
-                       var next = storyboard.instantiateViewController(withIdentifier: "SearchVC") as! SearchViewController
+                       var next = storyboard.instantiateViewController(withIdentifier: "TabBarVC") as! TabBarViewController
 
                        next.modalPresentationStyle = .fullScreen
                        self.present(next, animated: true, completion: nil)
