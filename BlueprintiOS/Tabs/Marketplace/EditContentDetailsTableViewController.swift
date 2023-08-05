@@ -47,7 +47,7 @@ class EditContentDetailsTableViewController: UITableViewController, UITextViewDe
         let dismissKey = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(dismissKey)
 //        tableView.register(GeneratedContentImageTableViewCell.self, forCellReuseIdentifier: "contentImageCell")
-//        tableView.register(UploadContentTableViewCell.self, forCellReuseIdentifier: "saveContentCell")
+        tableView.register(UploadContentTableViewCell.self, forCellReuseIdentifier: "saveContentCell")
         tableView.register(ContentPromptTableViewCell.self, forCellReuseIdentifier: "contentPromptCell")
         tableView.register(ContentDescriptionTableViewCell.self, forCellReuseIdentifier: "contentDescriptionCell")
         tableView.register(ContentPriceTableViewCell.self, forCellReuseIdentifier: "contentPriceCell")
