@@ -100,14 +100,48 @@ struct InventoryFormView: View {
             TextField("Name", text: $vm.name)
             TextField("Descripton", text: $vm.description)
             
+//            TextField("Price", text: Binding<String>(
+//                        get: { String(format: "%.2f", vm.price) },
+//                        set: { newValue in
+//                            if let value = Double(newValue) {
+//                                vm.price = value
+//                            }
+//                        }
+//                    ))
             TextField("Price", text: Binding<String>(
-                        get: { String(format: "%.2f", vm.price) },
-                        set: { newValue in
-                            if let value = Double(newValue) {
-                                vm.price = value
-                            }
-                        }
-                    ))
+                get: { String(format: "%.2f", vm.price) },
+                set: { newValue in
+                    if let value = Double(newValue) {
+                        vm.price = value
+                    }
+                }
+            ))
+            .foregroundColor(Color.gray) // Set the text color to gray
+            .padding(.horizontal, 10) // Add some horizontal padding for the whole TextField
+            .overlay(
+                HStack {
+                    Text("Price:")
+                        .foregroundColor(Color.gray)
+                    Spacer()
+                    Text("$") // Add the '$' symbol to the left
+                        .foregroundColor(Color.black) // Set the '$' symbol color to gray
+                      //  .padding(.leading, 5) // Add some left padding to the '$' symbol
+                        .padding(.trailing, 10) // Add a flexible space to push the input to the right
+                    TextField("0.00", text: Binding(
+                                get: {
+                                    String(format: "%.2f", vm.price)
+                                },
+                                set: { newValue in
+                                    vm.price = Double(newValue) ?? 0.00
+                                }
+                            ))
+                            .foregroundColor(Color.black) // Set the text color to black
+                            .multilineTextAlignment(.trailing) // Align the text to the trailing edge
+                }
+            //    .padding(.horizontal, 10) // Add horizontal padding to the overlay content
+                .background(Color.white) // Set the background color of the overlay
+                .cornerRadius(5) // Apply corner radius to the overlay
+            )
         }
         .disabled(vm.loadingState != .none)
     }

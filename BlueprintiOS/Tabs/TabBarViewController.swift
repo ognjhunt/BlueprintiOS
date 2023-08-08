@@ -41,14 +41,14 @@ class TabBarViewController: UITabBarController {
                 userProfileOrCreateAccountViewController = UINavigationController(rootViewController: vc)
 
                 // Set the tab name and icon for CreateAccountViewController
-                userProfileOrCreateAccountViewController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "person"), selectedImage: UIImage(named: "person.fill"))
+                userProfileOrCreateAccountViewController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), selectedImage: UIImage(systemName: "person.fill"))
             }
         
         // Set the tab name and icon for SearchViewController
-                searchViewController.tabBarItem = UITabBarItem(title: "Search", image: UIImage(named: "magnifyingglass")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "magnifyingglass")?.withRenderingMode(.alwaysOriginal))
+        searchViewController.tabBarItem = UITabBarItem(title: "Search", image: UIImage(systemName: "magnifyingglass"), selectedImage: UIImage(systemName: "magnifyingglass"))
 
                 // Set the tab name and icon for UploadViewController
-                uploadViewController.tabBarItem = UITabBarItem(title: "Upload", image: UIImage(named: "plus"), selectedImage: UIImage(named: "plus"))
+        uploadViewController.tabBarItem = UITabBarItem(title: "Upload", image: UIImage(systemName: "square.grid.2x2"), selectedImage: UIImage(systemName: "square.grid.2x2.fill"))
         
        
             
