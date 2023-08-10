@@ -22,6 +22,8 @@ class InventoryFormViewModel: ObservableObject {
     @Published var price = 0.0
     @Published var creatorId = ""
     @Published var category = ""
+    @Published var tags = ""
+    @Published var privacy = ""
     @Published var scale = 1.0
     @Published var size = 10.0
     
@@ -62,6 +64,8 @@ class InventoryFormViewModel: ObservableObject {
             price = item.price
             creatorId = item.creatorId
             category = item.category
+            privacy = item.privacy
+            tags = item.tags
             scale = item.scale
             size = item.size
             
@@ -82,7 +86,7 @@ class InventoryFormViewModel: ObservableObject {
         var item: InventoryItem
         switch formType {
         case .add:
-            item = .init(id: id, name: name, creatorId: creatorId, description: description, price: price, category: category, scale: scale, size: size)
+            item = .init(id: id, name: name, creatorId: creatorId, description: description, price: price, category: category, privacy: privacy, tags: tags, scale: scale, size: size)
         case .edit(let inventoryItem):
             item = inventoryItem
             item.name = name
@@ -90,6 +94,8 @@ class InventoryFormViewModel: ObservableObject {
             item.price = price
             item.creatorId = creatorId
             item.category = category
+            item.privacy = privacy
+            item.tags = tags
             item.scale = scale
             item.size = size
         }

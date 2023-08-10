@@ -18,7 +18,9 @@ struct InventoryItem: Identifiable, Codable, Equatable {
     var creatorId: String // = ""
     var description: String
     var price: Double
-    var category: String // = ""
+    var category: String
+    var privacy: String
+    var tags: String// = ""
     var scale: Double// = 1
     var size: Double // = 10
     var date = Date()
