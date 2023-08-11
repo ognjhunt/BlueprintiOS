@@ -259,15 +259,23 @@ class ObjectProfileViewController: UIViewController, QLPreviewControllerDataSour
 //        self.present(next, animated: true, completion: nil)
     }
     
-    @objc func profile(){
+    @objc func profile() {
         let user = self.creatorUid
-       
-        let vc = UserProfileViewController.instantiate(with: user) //(user:user)
+        
+        let vc = UserProfileViewController.instantiate(with: user)
+        
+        // Create a custom close button
+        let closeButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(closeButtonTapped))
+        vc.navigationItem.leftBarButtonItem = closeButton
+        
         let navVC = UINavigationController(rootViewController: vc)
-       // var next = UserProfileViewController.instantiate(with: user)
-         navVC.modalPresentationStyle = .fullScreen
-      //  self.navigationController?.pushViewController(next, animated: true)
+     //   navVC.modalPresentationStyle = .fullScreen
+        
         present(navVC, animated: true)
+    }
+
+    @objc func closeButtonTapped() {
+        dismiss(animated: true, completion: nil)
     }
     
     @objc func goToPurchasePoints(){

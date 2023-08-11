@@ -695,9 +695,9 @@
             filePath = "BlueprintiOS/Tabs/Marketplace/ObjectProfileViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "667"
-            endingLineNumber = "667"
-            landmarkName = "numberOfSections(in:)"
+            startingLineNumber = "675"
+            endingLineNumber = "675"
+            landmarkName = "tableView(_:numberOfRowsInSection:)"
             landmarkType = "7">
             <Locations>
                <Location

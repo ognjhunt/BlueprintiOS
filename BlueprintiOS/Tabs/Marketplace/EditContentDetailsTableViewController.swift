@@ -48,7 +48,7 @@ class EditContentDetailsTableViewController: UITableViewController, UITextViewDe
         view.addGestureRecognizer(dismissKey)
 //        tableView.register(GeneratedContentImageTableViewCell.self, forCellReuseIdentifier: "contentImageCell")
         tableView.register(UploadContentTableViewCell.self, forCellReuseIdentifier: "saveContentCell")
-        tableView.register(ContentPromptTableViewCell.self, forCellReuseIdentifier: "contentPromptCell")
+       // tableView.register(ContentPromptTableViewCell.self, forCellReuseIdentifier: "contentPromptCell")
         tableView.register(ContentDescriptionTableViewCell.self, forCellReuseIdentifier: "contentDescriptionCell")
         tableView.register(ContentPriceTableViewCell.self, forCellReuseIdentifier: "contentPriceCell")
         tableView.register(ContentPublicTableViewCell.self, forCellReuseIdentifier: "contentPublicCell")
@@ -79,12 +79,12 @@ class EditContentDetailsTableViewController: UITableViewController, UITextViewDe
             cell.nameTextField.text = self.name
             
             
-            let index1 = IndexPath(row: 4, section: 0)
+            let index1 = IndexPath(row: 3, section: 0)
             let cell1: ContentPriceTableViewCell = self.tableView.cellForRow(at: index1) as! ContentPriceTableViewCell
             cell1.priceTextField.text = "\(self.price)"
            // self.price = Int(text)!
             
-            let index2 = IndexPath(row: 2, section: 0)
+            let index2 = IndexPath(row: 1, section: 0)
             let cell2: ContentDescriptionTableViewCell = self.tableView.cellForRow(at: index2) as! ContentDescriptionTableViewCell
             cell2.descriptionTextView.text = self.descriptionText
             
@@ -211,7 +211,7 @@ class EditContentDetailsTableViewController: UITableViewController, UITextViewDe
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if section == 0 {
-            return 6
+            return 5
         }
         return 1
     }
@@ -221,13 +221,13 @@ class EditContentDetailsTableViewController: UITableViewController, UITextViewDe
         let cell: ContentNameTableViewCell = self.tableView.cellForRow(at: index) as! ContentNameTableViewCell
         newName = cell.nameTextField.text ?? ""
         
-        let index1 = IndexPath(row: 4, section: 0)
+        let index1 = IndexPath(row: 3, section: 0)
         let cell1: ContentPriceTableViewCell = self.tableView.cellForRow(at: index1) as! ContentPriceTableViewCell
         let pr = cell1.priceTextField.text
         newPrice = Int(pr ?? "")!
        // self.price = Int(text)!
         
-        let index2 = IndexPath(row: 2, section: 0)
+        let index2 = IndexPath(row: 1, section: 0)
         let cell2: ContentDescriptionTableViewCell = self.tableView.cellForRow(at: index2) as! ContentDescriptionTableViewCell
         newDescription = cell2.descriptionTextView.text
         
@@ -328,14 +328,14 @@ class EditContentDetailsTableViewController: UITableViewController, UITextViewDe
             //  cell.nameTextField.text = self.name
                 return cell
           }
-           if indexPath.row == 1 {
-               guard let cell = tableView.dequeueReusableCell(withIdentifier: ContentPromptTableViewCell.identifier, for: indexPath) as? ContentPromptTableViewCell else {
-                   return UITableViewCell()
-               }
-               tableView.rowHeight = 96
-                 return cell
-           }
-        if indexPath.row == 2 {
+//           if indexPath.row == 1 {
+//               guard let cell = tableView.dequeueReusableCell(withIdentifier: ContentPromptTableViewCell.identifier, for: indexPath) as? ContentPromptTableViewCell else {
+//                   return UITableViewCell()
+//               }
+//               tableView.rowHeight = 96
+//                 return cell
+//           }
+        if indexPath.row == 1 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ContentDescriptionTableViewCell.identifier, for: indexPath) as? ContentDescriptionTableViewCell else {
                 return UITableViewCell()
             }
@@ -343,7 +343,7 @@ class EditContentDetailsTableViewController: UITableViewController, UITextViewDe
          //   cell.descriptionTextView.text = self.description
               return cell
         }
-        if indexPath.row == 3 {
+        if indexPath.row == 2 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ContentPublicTableViewCell.identifier, for: indexPath) as? ContentPublicTableViewCell else {
                 return UITableViewCell()
             }
@@ -353,7 +353,7 @@ class EditContentDetailsTableViewController: UITableViewController, UITextViewDe
             
             return cell
         }
-        if indexPath.row == 4 {
+        if indexPath.row == 3 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ContentPriceTableViewCell.identifier, for: indexPath) as? ContentPriceTableViewCell else {
                 return UITableViewCell()
             }
@@ -367,7 +367,7 @@ class EditContentDetailsTableViewController: UITableViewController, UITextViewDe
             return cell
         }
         
-        if indexPath.row == 5 {
+        if indexPath.row == 4 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: UploadContentTableViewCell.identifier, for: indexPath) as? UploadContentTableViewCell else {
                 return UITableViewCell()
             }

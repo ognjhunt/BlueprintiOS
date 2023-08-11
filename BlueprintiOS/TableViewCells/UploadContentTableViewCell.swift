@@ -15,7 +15,7 @@ class UploadContentTableViewCell: UITableViewCell {
     
     let uploadButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 20, y: 10, width: UIScreen.main.bounds.width - 40, height: 50))
-        button.setTitle("Save / Upload", for: .normal)
+        button.setTitle("Save", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.backgroundColor = .tintColor
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)

@@ -87,6 +87,13 @@ class DownloadContentTableViewCell: UITableViewCell {
                         self.downloadButton.backgroundColor = .white//.tintColor
                         self.downloadButton.layer.borderColor = UIColor.black.cgColor
                         self.downloadButton.layer.borderWidth = 1
+                        
+                        
+                        self.downloadButton.setImage(UIImage(systemName: "checkmark.seal.fill"), for: .normal)
+                        self.downloadButton.imageView?.contentMode = .scaleAspectFit
+                        self.downloadButton.tintColor = .black
+                        self.downloadButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
+                        
                     } else {
                         let price = model?.price ?? 0
                         if price == 0 {
@@ -97,7 +104,7 @@ class DownloadContentTableViewCell: UITableViewCell {
                             imageView.tintColor = .systemYellow
                             imageView.image = image
                            // self.downloadButton.tintColor = .systemYellow
-                            self.downloadButton.setImage(imageView.image, for: .normal)
+                        //    self.downloadButton.setImage(imageView.image, for: .normal)
                             self.downloadButton.imageView?.contentMode = .scaleAspectFit
                             self.downloadButton.imageEdgeInsets = UIEdgeInsets(top: 15, left: 130, bottom: 15, right: 100) //adjust these to have fit right
 

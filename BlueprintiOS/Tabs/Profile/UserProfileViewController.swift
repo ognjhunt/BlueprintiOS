@@ -66,7 +66,8 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       // let _  = self.view
+        // Hide the default back button provided by the navigation controller
+        //navigationItem.leftBarButtonItem = nil
         setupView()
       loadData()
         

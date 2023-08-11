@@ -35,7 +35,7 @@ class ContentPriceTableViewCell: UITableViewCell {
         // Set the number of lines to 1
         label.numberOfLines = 1
         // Set the label text
-        label.text = "Price/Cost"
+        label.text = "Price"
         // Set the font and weight
         label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         // Set the text color
