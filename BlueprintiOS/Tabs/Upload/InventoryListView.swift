@@ -31,6 +31,8 @@ struct InventoryListView: View {
     @State private var showAlert = false // State variable to control whether the alert is shown
     @State private var showSignUp = false
 
+    @State private var showCustomAlert = false
+
     
     var body: some View {
         // Check if there are no items to display
@@ -54,6 +56,38 @@ struct InventoryListView: View {
                                 .background(Color.blue)
                                 .cornerRadius(10)
                                 Spacer()
+                            }
+                            .navigationTitle("Uploads")
+                            .toolbar {
+                                ToolbarItem(placement: .primaryAction) {
+                                    Button("+ Item") {
+                                        showCustomAlert.toggle()
+                                    }
+                                }
+                            }
+                            .background(
+                                        ZStack {
+                                            if showCustomAlert {
+                                                Color.black.opacity(0.3)
+                                                    .edgesIgnoringSafeArea(.all)
+                                                    .onTapGesture {
+                                                        showCustomAlert.toggle()
+                                                    }
+                                                CustomAlertView(isPresented: $showCustomAlert)
+                                                    .transition(.move(edge: .bottom)) // Add this transition for bottom slide effect
+                                            }
+                                        }
+                                    )
+                            .sheet(item: $formType) { type in
+                                NavigationStack {
+                                    InventoryFormView(vm: .init(formType: type))
+                                }
+                                .presentationDetents([.fraction(0.85)])
+                                .interactiveDismissDisabled()
+                            }
+                            
+                            .onAppear {
+                                vm.listenToItems()
                             }
                         } else {
                             VStack(spacing: 12) {
@@ -107,10 +141,14 @@ struct InventoryListView: View {
                                     showSignUp.toggle()                                },
                                       secondaryButton: .cancel())
                             }
+                            CustomUIView()
                         }
                         
                     } else {
                 List {
+                    Section {
+                                   CustomUIView() // Adding the custom UIView here
+                               }
                     ForEach(vm.items) { item in
                         InventoryListItemView(item: item)
                             .listRowSeparator(.hidden)
@@ -125,23 +163,35 @@ struct InventoryListView: View {
                     ToolbarItem(placement: .primaryAction) {
                         Button("+ Item") {
                             if Auth.auth().currentUser != nil {
-                                
-                                formType = .add
-                            } else {
-                                formType = .add
-                                
-                                //                        // Display an alert here since the user is not authenticated
-                                //                        showAlert.toggle() // Show the alert
-                            }
+                                                    showCustomAlert.toggle()
+                                                } else {
+                                                    showAlert.toggle()
+                                                }
                         }
                     }
                 }
+                .background(
+                            ZStack {
+                                if showCustomAlert {
+                                    Color.black.opacity(0.3)
+                                        .edgesIgnoringSafeArea(.all)
+                                        .onTapGesture {
+                                            showCustomAlert.toggle()
+                                        }
+                                    CustomAlertView(isPresented: $showCustomAlert)
+                                        .transition(.move(edge: .bottom)) // Add this transition for bottom slide effect
+                                }
+                            }
+                        )
                 .sheet(item: $formType) { type in
                     NavigationStack {
                         InventoryFormView(vm: .init(formType: type))
                     }
                     .presentationDetents([.fraction(0.85)])
                     .interactiveDismissDisabled()
+                }
+                .sheet(isPresented: $showCustomAlert) {
+                    CustomAlertView(isPresented: $showCustomAlert)
                 }
                 .onAppear {
                     vm.listenToItems()
@@ -212,6 +262,101 @@ struct InventoryListItemView: View {
         }
     }
 }
+
+struct CustomUIView: UIViewRepresentable {
+    func makeUIView(context: Context) -> UIView {
+        let customView = UIView()
+        customView.frame = CGRect(x: 0, y: 92, width: UIScreen.main.bounds.width, height: 0.5)
+        customView.backgroundColor = UIColor.systemGray5
+        return customView
+    }
+    
+    func updateUIView(_ uiView: UIView, context: Context) {
+        // Not needed for this example
+    }
+}
+
+struct CustomAlertView: View {
+    @Binding var isPresented: Bool
+    
+    var body: some View {
+        ZStack {
+            Color.black.opacity(0.3)
+                .edgesIgnoringSafeArea(.all)
+                .onTapGesture {
+                    isPresented = false
+                }
+            
+            VStack(spacing: 0) {
+                HStack {
+                    Text("Create")
+                        .font(.headline)
+                        .foregroundColor(.gray)
+                        .padding()
+                    
+                    Spacer()
+                }
+                .background(Color.white)
+                
+                HStack(spacing: 40) {
+                    VStack {
+                        Image(systemName: "view.3d")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 40, height: 40)
+                            .foregroundColor(.black)
+                        
+                        Text("Model")
+                            .foregroundColor(.black)
+                    }
+                    
+                    VStack {
+                        Image(systemName: "globe.americas")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 40, height: 40)
+                            .foregroundColor(.black)
+                        
+                        Text("Portal")
+                            .foregroundColor(.black)
+                    }
+                    
+                    VStack {
+                        Image(systemName: "mountain.2")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 40, height: 40)
+                            .foregroundColor(.black)
+                        
+                        Text("Environment")
+                            .foregroundColor(.black)
+                    }
+                }
+                .padding()
+                .background(Color.white)
+              //  .alignmentGuide(HorizontalAlignment.center) { d in d[.leading] }
+
+                
+                Divider()
+                    .background(Color.black)
+                    .padding(.horizontal)
+                
+                Button("Cancel") {
+                    isPresented = false
+                }
+                .font(.headline)
+                .foregroundColor(.gray)
+                .padding()
+            }
+            .frame(width: UIScreen.main.bounds.width, height: 250)
+            .background(Color.white)
+            .cornerRadius(10)
+            .shadow(radius: 5)
+        }
+        .edgesIgnoringSafeArea(.all)
+    }
+}
+
 
 #Preview {
     NavigationStack {

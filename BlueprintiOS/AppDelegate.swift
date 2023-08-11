@@ -42,9 +42,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                    let initialViewController = storyboard.instantiateViewController(withIdentifier: "TabBarVC") as! TabBarViewController
                    self.window?.rootViewController = initialViewController
         }
-        
-     //   IAPManager.shared.fetchProducts()
-        // Register for push notifications
            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
                if granted {
                    DispatchQueue.main.async {
@@ -52,6 +49,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                    }
                }
            }
+        // correct the transparency bug for Tab bars
+                        let tabBarAppearance = UITabBarAppearance()
+                        tabBarAppearance.configureWithOpaqueBackground()
+                        UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
       return true
     }
 

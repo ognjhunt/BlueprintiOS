@@ -42,7 +42,6 @@ class ObjectProfileViewController: UIViewController, QLPreviewControllerDataSour
     var modelName = ""
     var model           : Model!
     var description1 = ""
-    var productLink = ""
     
     //MARK: --- Override ---
 //    init(modelUid: String) {
@@ -99,7 +98,7 @@ class ObjectProfileViewController: UIViewController, QLPreviewControllerDataSour
                 self.settingsImg.isUserInteractionEnabled = true
             }
             self.description1 = model?.description ?? ""
-            self.productLink = model?.productLink ?? ""
+           // self.productLink = model?.productLink ?? ""
 //            if price != 0 {
 //                self.downloadButton.setTitle("Purchase (\(price ?? 0) points)", for: .normal)
 //            } else {
@@ -206,7 +205,7 @@ class ObjectProfileViewController: UIViewController, QLPreviewControllerDataSour
         
         self.tableView.register(ObjectInfoTableViewCell.self, forCellReuseIdentifier: "ObjectInfoTableViewCell")
         self.tableView.register(ObjectDescriptionTableViewCell.self, forCellReuseIdentifier: "ObjectDescriptionTableViewCell")
-        self.tableView.register(ObjectProductLinkTableViewCell.self, forCellReuseIdentifier: "ObjectProductLinkTableViewCell")
+     //   self.tableView.register(ObjectProductLinkTableViewCell.self, forCellReuseIdentifier: "ObjectProductLinkTableViewCell")
         self.tableView.register(ObjectCreatorTableViewCell.self, forCellReuseIdentifier: "ObjectCreatorTableViewCell")
         self.tableView.register(DownloadContentTableViewCell.self, forCellReuseIdentifier: "DownloadContentTableViewCell")
     }
@@ -421,143 +420,6 @@ class ObjectProfileViewController: UIViewController, QLPreviewControllerDataSour
      //   self.addConstraint(yCenterConstraint)
     }
     
-    
-    
-//    @objc func downloadContentAction(){
-//            //let price = model?.price
-//           // let modelName = model?.modelName
-//        if self.isCollected == true {
-//            if isImage == true {
-//                guard let data = objectImageView.image?.jpegData(compressionQuality: 0.5) else { return }
-//                let encoded = try! PropertyListEncoder().encode(data)
-//                UserDefaults.standard.set(encoded, forKey: "marketplaceImage")
-//
-//                let defaults = UserDefaults.standard
-//                defaults.set("\(self.modelUid ?? "")", forKey: "modelUid")
-//                defaults.set(true, forKey: "downloadImage")
-//                self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-//                return
-//            } else {
-//                let defaults = UserDefaults.standard
-//                defaults.set("\(self.modelUid ?? "")", forKey: "modelUid")
-//                defaults.set(true, forKey: "downloadContent")
-//                self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-//                return
-//            }}
-//        if Auth.auth().currentUser == nil {
-//            let alert = UIAlertController(title: "Create Account", message: "To download content from Blueprint's Marketplace you need to first create an account. When you create an account on Blueprint, you get 500 free credits!", preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: "Sign Up", style: .default) { action in
-//
-//                self.goToSignUp()
-//            })
-//            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { action in
-//                //completionHandler(false)
-//                return
-//            })
-//            present(alert, animated: true)
-//        } else if Auth.auth().currentUser?.uid ?? "" == self.creatorUid {
-//            if isImage == true {
-//                guard let data = objectImageView.image?.jpegData(compressionQuality: 0.5) else { return }
-//                let encoded = try! PropertyListEncoder().encode(data)
-//                UserDefaults.standard.set(encoded, forKey: "marketplaceImage")
-//
-//                let defaults = UserDefaults.standard
-//                defaults.set("\(self.modelUid ?? "")", forKey: "modelUid")
-//                defaults.set(true, forKey: "downloadImage")
-//                self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-//                return
-//            } else {
-//                let defaults = UserDefaults.standard
-//                defaults.set("\(self.modelUid ?? "")", forKey: "modelUid")
-//                defaults.set(true, forKey: "downloadContent")
-//                self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-//                return
-//            }
-//        }  else if self.price > self.userPoints && Auth.auth().currentUser != nil && self.isCollected != true{
-//
-//                let alertController = UIAlertController(title: "Not Enough Credits :/", message: "To purchase this content, it requires more credits that you currently have. You can add credits to your account now.", preferredStyle: .alert)
-//                let purchaseAction = UIAlertAction(title: "Buy Credits", style: .default, handler: { (_) in
-//                    // GO TO PURCHASE POINTS VC -- DO NOT LOSE GENERATED CONTENT
-//                    self.goToPurchasePoints()
-//                })
-//                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (_) in
-//
-//                })
-//
-//                alertController.addAction(purchaseAction)
-//                alertController.addAction(cancelAction)
-//                self.present(alertController, animated: true, completion: nil)
-//            return
-//            } else if self.price > self.userPoints && Auth.auth().currentUser == nil {
-//                let alert = UIAlertController(title: "Create Account", message: "When you create an account on Blueprint, you get 500 free credits!", preferredStyle: .alert)
-//                alert.addAction(UIAlertAction(title: "Sign Up", style: .default) { action in
-//
-//                    self.goToSignUp()
-//                })
-//                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { action in
-//                    //completionHandler(false)
-//                    return
-//                })
-//                present(alert, animated: true)
-//                return
-//            }  else if self.price != 0 && Auth.auth().currentUser?.uid ?? "" != self.creatorUid {
-//                let alertController = UIAlertController(title: "Buy \(self.name)?", message: "Are you sure you want to purchase \(self.name)?", preferredStyle: .alert)
-//                let purchaseAction = UIAlertAction(title: "Purchase", style: .default, handler: { (_) in
-//                    // ADD ACTIVITY INDICATOR AS TITLE OF DOWNLOAD BUTTON -- REMOVE POINTS FROM CURRENT USER -- PAY CREATOR -- TAKE COMMISSION -- ADD CONTENT TO USER LIBRARY
-//
-//                    //    self.showLoading()
-//                    let docRef = self.db.collection("users").document(Auth.auth().currentUser?.uid ?? "")
-//                       docRef.updateData([
-//                            "points": FieldValue.increment(Int64(-self.price)),
-//                            "collectedContentCount": FieldValue.increment(Int64(+1)),
-//                            "collectedContentIDs": FieldValue.arrayUnion(["\(self.modelUid ?? "")"])
-//                       ])
-//
-//                    let docRef1 = self.db.collection("users").document(self.creatorUid)
-//                    let earned = Double(self.price)// * 0.0090
-//                       docRef1.updateData([
-//                        "points": FieldValue.increment(earned)
-//                       ])
-//
-//                //    print("\(doubleValue) is amount earned for creator user")
-//                    let defaults = UserDefaults.standard
-//
-//                    defaults.set("\(self.modelUid ?? "")", forKey: "modelUid")
-//                    defaults.set(true, forKey: "downloadContent")
-//                    self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-//                })
-//                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (_) in
-//
-//                })
-//
-//                alertController.addAction(purchaseAction)
-//                alertController.addAction(cancelAction)
-//                self.present(alertController, animated: true, completion: nil)
-//                return
-//            } else {
-//
-//                let docRef = self.db.collection("users").document(Auth.auth().currentUser?.uid ?? "")
-//                   docRef.updateData([
-//                        "collectedContentCount": FieldValue.increment(Int64(+1)),
-//                        "collectedContentIDs": FieldValue.arrayUnion(["\(self.modelUid ?? "")"])
-//                   ])
-//
-//                let docRef1 = self.db.collection("users").document(self.creatorUid)
-//                let earned = 5
-////                   docRef1.updateData([
-////                    "points": FieldValue.increment(Int64(5))
-////                   ])
-//
-//                let defaults = UserDefaults.standard
-//
-//                defaults.set("\(self.modelUid ?? "")", forKey: "modelUid")
-//                defaults.set(true, forKey: "downloadContent")
-//                self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-//                return
-//            }
-//
-//        }
-    
     @objc func downloadContentAction(){
         // Check if the user is logged in
         if Auth.auth().currentUser == nil {
@@ -573,21 +435,23 @@ class ObjectProfileViewController: UIViewController, QLPreviewControllerDataSour
         }
        
         if isCollected == true {
-            if isImage {
-                saveImageToUserDefaults()
-            } else {
-                saveModelToUserDefaults()
-            }
-            dismiss()
+//            if isImage {
+//                saveImageToUserDefaults()
+//            } else {
+//                saveModelToUserDefaults()
+//            }
+//            dismiss()
+            ProgressHUD.showSuccess("Already in Library")
             return
         }
         if Auth.auth().currentUser?.uid ?? "" == creatorUid {
-            if isImage {
-                saveImageToUserDefaults()
-            } else {
-                saveModelToUserDefaults()
-            }
-            dismiss()
+//            if isImage {
+//                saveImageToUserDefaults()
+//            } else {
+//                saveModelToUserDefaults()
+//            }
+//            dismiss()
+            ProgressHUD.showSuccess("Already in Library")
             return
         }
         if self.price != 0 && Auth.auth().currentUser?.uid ?? "" != self.creatorUid && self.price < userPoints{
@@ -601,12 +465,13 @@ class ObjectProfileViewController: UIViewController, QLPreviewControllerDataSour
         }
         
         if self.price == 0 && Auth.auth().currentUser?.uid ?? "" != self.creatorUid {
-            if isImage {
-                saveImageToUserDefaults()
-            } else {
-                saveModelToUserDefaults()
-            }
-            dismiss()
+
+//            self.downloadButton.setTitle("Added to Library", for: .normal)
+//            self.downloadButton.setTitleColor(UIColor.black, for: .normal)
+//            self.downloadButton.backgroundColor = .white//.tintColor
+//            self.downloadButton.layer.borderColor = UIColor.black.cgColor
+//            self.downloadButton.layer.borderWidth = 1
+            ProgressHUD.showSuccess("Added to Library")
             return
         }
         if price > userPoints {
@@ -799,7 +664,14 @@ class ObjectProfileViewController: UIViewController, QLPreviewControllerDataSour
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+//        if self.isCollected == true && self.description1.isEmpty{
+//            return 2 // no need to show 'Add to Library' button if its already in your library
+//        } else
+        if self.description1.isEmpty {
+            return 3 // Since we're skipping row 1
+        } else {
+            return 4
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -818,50 +690,69 @@ class ObjectProfileViewController: UIViewController, QLPreviewControllerDataSour
             }
           
         
-        if indexPath.row == 1 {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: ObjectDescriptionTableViewCell.identifier, for: indexPath) as? ObjectDescriptionTableViewCell else {
-                return UITableViewCell()
-            }
-                        // do second task if success
-                        
-            cell.configure(with: self.modelUid)
-            if self.description1 == "" {
-                tableView.rowHeight = 0
+        else if indexPath.row == 1 {
+            if self.description1.isEmpty {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: ObjectCreatorTableViewCell.identifier, for: indexPath) as? ObjectCreatorTableViewCell else {
+                    return UITableViewCell()
+                }
+                            // do second task if success
+                let tap = UITapGestureRecognizer(target: self, action: #selector(profile))
+                cell.creatorNameLabel.addGestureRecognizer(tap)
+                
+                let tap1 = UITapGestureRecognizer(target: self, action: #selector(profile))
+                cell.creatorImageView.addGestureRecognizer(tap1)
+                
+                cell.configure(with: self.modelUid)
+                tableView.rowHeight = 108
+                return cell
+                
             } else {
-                tableView.rowHeight = 135
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: ObjectDescriptionTableViewCell.identifier, for: indexPath) as? ObjectDescriptionTableViewCell else {
+                    return UITableViewCell()
+                }
+                // do second task if success
+                
+                cell.configure(with: self.modelUid)
+                if self.description1 == "" {
+                    tableView.rowHeight = 0
+                } else {
+                    tableView.rowHeight = 135
+                }
+                return cell
             }
-            return cell
-          }
-          if indexPath.row == 2 {
-              guard let cell = tableView.dequeueReusableCell(withIdentifier: ObjectProductLinkTableViewCell.identifier, for: indexPath) as? ObjectProductLinkTableViewCell else {
-                  return UITableViewCell()
-              }
-                          
-              cell.configure(with: self.modelUid)
-            //  tableView.rowHeight = 89
-              if self.productLink == "" {
-                  tableView.rowHeight = 0
-              } else {
-                  tableView.rowHeight = 89
-              }
-              return cell
-          }
-                   if indexPath.row == 3 {
-                       guard let cell = tableView.dequeueReusableCell(withIdentifier: ObjectCreatorTableViewCell.identifier, for: indexPath) as? ObjectCreatorTableViewCell else {
-                           return UITableViewCell()
-                       }
-                                   // do second task if success
-                       let tap = UITapGestureRecognizer(target: self, action: #selector(profile))
-                       cell.creatorNameLabel.addGestureRecognizer(tap)
-                       
-                       let tap1 = UITapGestureRecognizer(target: self, action: #selector(profile))
-                       cell.creatorImageView.addGestureRecognizer(tap1)
-                       
-                       cell.configure(with: self.modelUid)
-                       tableView.rowHeight = 108
-                       return cell
-                   }
-        if indexPath.row == 4 {
+        }
+        else if indexPath.row == 2 {
+            if self.description1.isEmpty {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: DownloadContentTableViewCell.identifier, for: indexPath) as? DownloadContentTableViewCell else {
+                    return UITableViewCell()
+                }
+                cell.configure(with: self.modelUid)
+                let tap = UITapGestureRecognizer(target: self, action: #selector(self.downloadContentAction))
+                cell.downloadButton.addGestureRecognizer(tap)
+                
+    //            cell.downloadButton.setTitle("", for: .normal)
+    //            cell.activityIndicator.isHidden = false
+    //            cell.activityIndicator.startAnimating()
+                tableView.rowHeight = 70
+                return cell
+            }
+            else {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: ObjectCreatorTableViewCell.identifier, for: indexPath) as? ObjectCreatorTableViewCell else {
+                    return UITableViewCell()
+                }
+                // do second task if success
+                let tap = UITapGestureRecognizer(target: self, action: #selector(profile))
+                cell.creatorNameLabel.addGestureRecognizer(tap)
+                
+                let tap1 = UITapGestureRecognizer(target: self, action: #selector(profile))
+                cell.creatorImageView.addGestureRecognizer(tap1)
+                
+                cell.configure(with: self.modelUid)
+                tableView.rowHeight = 108
+                return cell
+            }
+        }
+        if indexPath.row == 3 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DownloadContentTableViewCell.identifier, for: indexPath) as? DownloadContentTableViewCell else {
                 return UITableViewCell()
             }
@@ -889,44 +780,67 @@ class ObjectProfileViewController: UIViewController, QLPreviewControllerDataSour
     var cellTaps2 = 0
     var cellTaps3 = 0
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
-    {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
             return 164
-        }
-        if int_row == indexPath.row && indexPath.row == 1 { // when you tap on cell then it will expend the cell
-            cellTaps1 += 1
-            cellTaps2 = 0
-            cellTaps3 = 0
-            if cellTaps1 % 2 == 0 {
-                return 0
+        } else if indexPath.row == 1 {
+            if self.description1.isEmpty {
+                return 108 // Height of ObjectCreatorTableViewCell when description is empty
             } else {
-                return 140 //UITableView.automaticDimension
-            }}
-        else if int_row == indexPath.row && indexPath.row == 2 { // when you tap on cell then it will expend the cell
-            cellTaps2 += 1
-            cellTaps1 = 0
-            cellTaps3 = 0
-            if cellTaps2 % 2 == 0 {
-                return 0
+                return 135 // Height of ObjectDescriptionTableViewCell when description is not empty
+            }
+        } else if indexPath.row == 2 {
+            if self.description1.isEmpty {
+                return 70 // Height of ObjectCreatorTableViewCell when description is empty
             } else {
-                return 93 //UITableView.automaticDimension
-            }}
-        else if int_row == indexPath.row && indexPath.row == 3 { // when you tap on cell then it will expend the cell
-            cellTaps3 += 1
-            cellTaps2 = 0
-            cellTaps1 = 0
-            if cellTaps3 % 2 == 0 {
-                return 58
-            } else {
-                return 118// UITableView.automaticDimension
-            }}
-        else if indexPath.row == 4 {
+                return 108 // Height of ObjectDescriptionTableViewCell when description is not empty
+            }
+        } else if indexPath.row == 3 {
             return 70
         }
-            else {
-            return 58 // at this time only show your uppar labal only
-        }
-        }
+        
+        return 0 // Default case
+    }
+
+    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+//    {
+//        if indexPath.row == 0 {
+//            return 164
+//        }
+//        if int_row == indexPath.row && indexPath.row == 1 { // when you tap on cell then it will expend the cell
+//            cellTaps1 += 1
+//            cellTaps2 = 0
+//            cellTaps3 = 0
+//            if cellTaps1 % 2 == 0 {
+//                return 0
+//            } else {
+//                return 140 //UITableView.automaticDimension
+//            }}
+//        else if int_row == indexPath.row && indexPath.row == 2 { // when you tap on cell then it will expend the cell
+//            cellTaps2 += 1
+//            cellTaps1 = 0
+//            cellTaps3 = 0
+//            if cellTaps2 % 2 == 0 {
+//                return 0
+//            } else {
+//                return 93 //UITableView.automaticDimension
+//            }}
+//        else if int_row == indexPath.row && indexPath.row == 3 { // when you tap on cell then it will expend the cell
+//            cellTaps3 += 1
+//            cellTaps2 = 0
+//            cellTaps1 = 0
+//            if cellTaps3 % 2 == 0 {
+//                return 58
+//            } else {
+//                return 118// UITableView.automaticDimension
+//            }}
+//        else if indexPath.row == 4 {
+//            return 70
+//        }
+//            else {
+//            return 58 // at this time only show your uppar labal only
+//        }
+//        }
     
 }

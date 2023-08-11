@@ -28,6 +28,9 @@ struct InventoryFormView: View {
     @State private var showPrivacyOptions = false
     @State private var isPopoverPresented = false
     
+    @State private var isPrivacyOptionsVisible = false
+
+    
     var body: some View {
 //        VStack(spacing: 0) {
 //            Picker("Tab", selection: $selectedTab) {
@@ -138,30 +141,12 @@ struct InventoryFormView: View {
                 Image(systemName: "globe.americas")
                     .foregroundColor(.black) // Set the color of the image
                 Button("Public") {
-                                    // Toggle the privacy options popover here
-                                    isPopoverPresented.toggle()
-                                }
-                .foregroundColor(.primary)
-
-                                .popover(isPresented: $isPopoverPresented, arrowEdge: .bottom) {
-                                    VStack {
-                                        Button("Private") {
-                                            // Handle choosing private option
-                                            vm.privacy = "Private"
-                                            isPopoverPresented.toggle()
-                                        }
-                                        .foregroundColor(.primary)
-                                        
-                                        Divider()
-                                        
-                                        Button("Cancel") {
-                                            isPopoverPresented.toggle()
-                                        }
-                                        .foregroundColor(.primary)
-                                    }
-                                    .padding()
-                                }
+                    // Toggle the privacy options here
+                    isPrivacyOptionsVisible.toggle()
                 }
+                .foregroundColor(.primary)
+            }
+                
             TextField("Price", text: Binding<String>(
                 get: { String(format: "%.2f", vm.price) },
                 set: { newValue in
@@ -175,28 +160,76 @@ struct InventoryFormView: View {
             .overlay(
                 HStack {
                     Text("Price:")
-                        .foregroundColor(Color.gray)
+                        .foregroundColor(Color.primary)
                     Spacer()
-                    Text("$") // Add the '$' symbol to the left
-                        .foregroundColor(Color.black) // Set the '$' symbol color to gray
-                      //  .padding(.leading, 5) // Add some left padding to the '$' symbol
-                        .padding(.trailing, 10) // Add a flexible space to push the input to the right
+                    TextField("$", text: .constant("$"))
+                        .frame(width: 20) // Adjust the width of the "$" input field
+                        .foregroundColor(Color.black) // Set the text color to black
+                        .multilineTextAlignment(.trailing) // Align the text to the trailing edge
                     TextField("0.00", text: Binding(
-                                get: {
-                                    String(format: "%.2f", vm.price)
-                                },
-                                set: { newValue in
-                                    vm.price = Double(newValue) ?? 0.00
-                                }
-                            ))
-                            .foregroundColor(Color.black) // Set the text color to black
-                            .multilineTextAlignment(.trailing) // Align the text to the trailing edge
+                        get: {
+                            String(format: "%.2f", vm.price)
+                        },
+                        set: { newValue in
+                            vm.price = Double(newValue) ?? 0.00
+                        }
+                    ))
+                    .foregroundColor(Color.black) // Set the text color to black
+                    .multilineTextAlignment(.trailing) // Align the text to the trailing edge
+                    .background(Color.init(red: 240/255, green: 236/255, blue: 236/255)).opacity(0.85)
                 }
-            //    .padding(.horizontal, 10) // Add horizontal padding to the overlay content
+             //   .padding(.horizontal, 10) // Add horizontal padding to the overlay content
                 .background(Color.white) // Set the background color of the overlay
                 .cornerRadius(5) // Apply corner radius to the overlay
             )
-        }
+
+
+        
+        if isPrivacyOptionsVisible {
+                    VStack {
+                        HStack(alignment: .firstTextBaseline) {
+                            Image(systemName: "globe.americas.fill")
+                                .foregroundColor(.black) // Set the color of the image
+                            Button("Public - Anyone can search for and view") {
+                                vm.privacy = "Public"
+                                isPrivacyOptionsVisible.toggle()
+                            }
+                            .foregroundColor(.primary)
+                         //   .fontWeight(.medium)
+                        }
+                        
+                       // Divider()
+                        
+                        HStack(alignment: .firstTextBaseline) {
+                            Image(systemName: "lock.fill")
+                                .foregroundColor(.black) // Set the color of the image
+                            Button("Private - Only you can view") {
+                                vm.privacy = "Private"
+                                isPrivacyOptionsVisible.toggle()
+                            }
+                            .foregroundColor(.primary)
+                            //.fontWeight(.medium)
+                        }
+                        
+                        Divider()
+                        
+                        HStack(alignment: .firstTextBaseline) {
+                            Image(systemName: "xmark")
+                                .foregroundColor(.black) // Set the color of the image
+                            Button("Cancel") {
+                                isPrivacyOptionsVisible.toggle()
+                            }
+                            .foregroundColor(.primary)
+                        }
+                    }
+                    .padding()
+                    .background(Color.white) // Optional background color
+                    .cornerRadius(10) // Optional corner radius
+                    .shadow(radius: 5) // Optional shadow
+                    .frame(maxWidth: .infinity, alignment: .bottom) // Align the view at the bottom
+                    .transition(.slide) // Optional transition effect
+                }
+            }
         .disabled(vm.loadingState != .none)
     }
     

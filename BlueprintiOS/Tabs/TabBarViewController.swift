@@ -32,7 +32,7 @@ class TabBarViewController: UITabBarController {
                 let user = Auth.auth().currentUser?.uid ?? ""
                 let userProfileViewController = UserProfileViewController.instantiate(with: user) //(user:user)
                 userProfileOrCreateAccountViewController = UINavigationController(rootViewController: userProfileViewController)
-                userProfileOrCreateAccountViewController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "person"), selectedImage: UIImage(named: "person.fill"))
+                userProfileOrCreateAccountViewController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), selectedImage: UIImage(systemName: "person.fill"))
 
             } else {
                 // User is not signed in, show CreateAccountViewController
@@ -51,6 +51,7 @@ class TabBarViewController: UITabBarController {
         uploadViewController.tabBarItem = UITabBarItem(title: "Upload", image: UIImage(systemName: "square.grid.2x2"), selectedImage: UIImage(systemName: "square.grid.2x2.fill"))
         
        
+        
             
             // Set the view controllers for the tab bar
             viewControllers = [uploadViewController, searchViewController, userProfileOrCreateAccountViewController]

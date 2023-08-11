@@ -20,7 +20,7 @@ class DownloadContentTableViewCell: UITableViewCell {
         let button = UIButton(frame: CGRect(x: 20, y: 10, width: UIScreen.main.bounds.width - 40, height: 50))
         button.setTitle("Add to Library", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
-        button.backgroundColor = .tintColor
+        button.backgroundColor = .black// .tintColor
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         button.layer.cornerRadius = 8
         return button
@@ -82,9 +82,11 @@ class DownloadContentTableViewCell: UITableViewCell {
                 FirestoreManager.getUser(Auth.auth().currentUser?.uid ?? "") { user in
                     if user?.collectedContentIDs.contains(modelId) == true || model?.creatorId == Auth.auth().currentUser?.uid ?? "" { // 
                         //                    self.downloadButton.setTitle("Collected", for: .normal)
-                        self.downloadButton.setTitle("Add to Library", for: .normal)
-                        self.downloadButton.setTitleColor(UIColor.white, for: .normal)
-                        self.downloadButton.backgroundColor = .tintColor
+                        self.downloadButton.setTitle("Already in Library", for: .normal)
+                        self.downloadButton.setTitleColor(UIColor.black, for: .normal)
+                        self.downloadButton.backgroundColor = .white//.tintColor
+                        self.downloadButton.layer.borderColor = UIColor.black.cgColor
+                        self.downloadButton.layer.borderWidth = 1
                     } else {
                         let price = model?.price ?? 0
                         if price == 0 {
