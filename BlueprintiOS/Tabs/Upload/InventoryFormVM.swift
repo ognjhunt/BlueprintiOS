@@ -9,6 +9,7 @@ import FirebaseFirestore
 import FirebaseStorage
 import Foundation
 import SwiftUI
+import UIKit
 import QuickLookThumbnailing
 
 class InventoryFormViewModel: ObservableObject {
@@ -29,6 +30,9 @@ class InventoryFormViewModel: ObservableObject {
     
     @Published var usdzURL: URL?
     @Published var thumbnailURL: URL?
+    
+    @Published var thumbnailImage: UIImage?
+
     
     @Published var loadingState = LoadingType.none
     @Published var error: String?
@@ -115,6 +119,7 @@ class InventoryFormViewModel: ObservableObject {
     
     @MainActor
     func deleteUSDZ() async {
+        
         let storageRef = Storage.storage().reference()
         let usdzRef = storageRef.child("\(id).usdz")
         let thumbnailRef = storageRef.child("\(id).jpg")

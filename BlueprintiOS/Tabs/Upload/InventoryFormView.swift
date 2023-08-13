@@ -8,6 +8,7 @@
 import SafariServices
 import SwiftUI
 import UniformTypeIdentifiers
+import UIKit
 
 struct InventoryFormView: View {
     
@@ -29,6 +30,9 @@ struct InventoryFormView: View {
     @State private var isPopoverPresented = false
     
     @State private var isPrivacyOptionsVisible = false
+    
+    @State private var isPhotoPickerPresented = false
+    @State private var showDeleteAlert = false // Add this
 
     
     var body: some View {
@@ -66,6 +70,7 @@ struct InventoryFormView: View {
                         Button("Delete", role: .destructive) {
                             Task {
                                 do {
+                                    
                                     try await vm.deleteItem()
                                     dismiss()
                                 } catch {
@@ -86,13 +91,23 @@ struct InventoryFormView: View {
                 
                 ToolbarItem(placement: .confirmationAction) {
                     //change to upload in other mode
-                    Button("Save") {
-                        do {
-                            try vm.save()
-                            dismiss()
-                        } catch {}
+                    if case .edit = vm.formType {
+                        Button("Save") {
+                            do {
+                                try vm.save()
+                                dismiss()
+                            } catch {}
+                        }
+                        .disabled(vm.loadingState != .none || vm.usdzURL == nil || vm.name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                    } else {
+                        Button("Upload") {
+                            do {
+                                try vm.save()
+                                dismiss()
+                            } catch {}
+                        }
+                        .disabled(vm.loadingState != .none || vm.usdzURL == nil || vm.name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                     }
-                    .disabled(vm.loadingState != .none || vm.usdzURL == nil || vm.name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                 }
             }
             .confirmationDialog("Add USDZ", isPresented: $vm.showUSDZSource, titleVisibility: .visible, actions: {
@@ -118,7 +133,29 @@ struct InventoryFormView: View {
             }, message: { _ in
                 Text(vm.error ?? "")
             })
-      //  }
+            .sheet(isPresented: $isPhotoPickerPresented) {
+                ImagePicker(sourceType: .photoLibrary) { selectedImage in
+                    // Handle the selected image here, you can set it as the new thumbnail
+                    if let image = selectedImage {
+                        vm.thumbnailImage = image
+                    }
+                }
+            }
+        
+        
+            .alert(isPresented: $showDeleteAlert) {
+                    Alert(
+                        title: Text("Delete item?"),
+                        message: Text("Are you sure you want to delete this item from Blueprint? It will remove ____ for all user's Blueprints."),
+                        primaryButton: .default(Text("Delete")) {
+                            Task {
+                                await vm.deleteUSDZ()
+                            }
+                        },
+                        secondaryButton: .cancel()
+                    )
+                }
+            
         .navigationTitle(vm.navigationTitle)
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -140,10 +177,13 @@ struct InventoryFormView: View {
             HStack {
                 Image(systemName: "globe.americas")
                     .foregroundColor(.black) // Set the color of the image
+                    .fontWeight(.heavy)
+
                 Button("Public") {
                     // Toggle the privacy options here
                     isPrivacyOptionsVisible.toggle()
                 }
+                .fontWeight(.medium)
                 .foregroundColor(.primary)
             }
                 
@@ -233,6 +273,7 @@ struct InventoryFormView: View {
         .disabled(vm.loadingState != .none)
     }
     
+    
     var arSection: some View {
         Section("Content") {
             if let thumbnailURL = vm.thumbnailURL {
@@ -242,7 +283,12 @@ struct InventoryFormView: View {
                         image.resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(maxWidth: .infinity, maxHeight: 300)
-                        
+//                        if let thumbnailImage = vm.thumbnailImage {
+//                            Image(uiImage: thumbnailImage)
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+//                                .frame(maxWidth: .infinity, maxHeight: 300)
+//                        }
                     case .failure:
                         Text("Failed to fetch thumbnail")
                     default: ProgressView()
@@ -254,13 +300,17 @@ struct InventoryFormView: View {
                 }
             }
             
+            
+            
             if let usdzURL = vm.usdzURL {
                 Button {
-                    viewAR(url: usdzURL)
+                    // go to photo library of user, if we don't have permission, then ask - the chosen photo will become the new thumbnail
+                    isPhotoPickerPresented.toggle()
+
                 } label: {
                     HStack {
                         Image(systemName: "photo").imageScale(.large)
-                        Text("Choose thumbnail")
+                        Text("Change thumbnail")
                     }
                 }
                 Button {
@@ -273,7 +323,13 @@ struct InventoryFormView: View {
                 }
                 
                 Button("Delete USDZ", role: .destructive) {
-                    Task { await vm.deleteUSDZ() }
+                    Task {
+                        if case .edit = vm.formType {
+                            showDeleteAlert = true
+                        } else {
+                            await vm.deleteUSDZ()
+                        }
+                    }
                 }
                 
             } else {

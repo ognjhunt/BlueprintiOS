@@ -9,7 +9,7 @@ struct SignUpViewControllerWrapper: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> SignUpViewController {
         let storyboard = UIStoryboard(name: "SignUp", bundle: nil)
         let viewController = storyboard.instantiateViewController(withIdentifier: "SignUpVC") as! SignUpViewController
-        viewController.modalPresentationStyle = .fullScreen // Set modal presentation style
+     //   viewController.modalPresentationStyle = .fullScreen // Set modal presentation style
         return viewController
     }
     
@@ -71,7 +71,8 @@ struct InventoryListView: View {
                             .toolbar {
                                 ToolbarItem(placement: .primaryAction) {
                                     Button("+ Item") {
-                                        showCustomAlert.toggle()
+                                        formType = .add
+                                     //   showCustomAlert.toggle()
                                     }
                                 }
                             }
@@ -118,6 +119,7 @@ struct InventoryListView: View {
 
                                 Button("Sign in") {
                                     showSignUp.toggle()
+                                   
                                 }
                                 .foregroundColor(.white)
                                 .padding()
@@ -129,10 +131,7 @@ struct InventoryListView: View {
 //                                .frame(width: UIScreen.main.bounds.width - 130)
                                 .frame(maxWidth: .infinity)
                                 .frame(minWidth: 300)
-                                .sheet(isPresented: $showSignUp) {
-                                                        // Use the SignUpViewControllerWrapper here
-                                                        SignUpViewControllerWrapper()
-                                                    }
+                                .fullScreenCover(isPresented: $showSignUp, content: SignUpViewControllerWrapper.init)
                                 Spacer()
                             }
                             .navigationTitle("Uploads")
@@ -151,14 +150,14 @@ struct InventoryListView: View {
                                     showSignUp.toggle()                                },
                                       secondaryButton: .cancel())
                             }
-                            CustomUIView()
+                        //    CustomUIView()
                         }
                         
                     } else {
                 List {
-                    Section {
-                                   CustomUIView() // Adding the custom UIView here
-                               }
+//                    Section {
+//                                   CustomUIView() // Adding the custom UIView here
+//                               }
                     ForEach(vm.items) { item in
                         InventoryListItemView(item: item)
                             .listRowSeparator(.hidden)
@@ -173,7 +172,8 @@ struct InventoryListView: View {
                     ToolbarItem(placement: .primaryAction) {
                         Button("+ Item") {
                             if Auth.auth().currentUser != nil {
-                                                    showCustomAlert.toggle()
+                                formType = .add
+                                                    //showCustomAlert.toggle()
                                                 } else {
                                                     showAlert.toggle()
                                                 }
@@ -258,14 +258,14 @@ struct InventoryListItemView: View {
                     Text("Size: ")
                         .font(.subheadline)
                         .fontWeight(.semibold) +
-                    Text("\(item.size) MB")
+                    Text("\(Int(ceil(item.size))) MB") // Round up the size to the nearest whole number
                         .font(.subheadline)
                 }
                 Group {
                     Text("Price: ")
                         .font(.subheadline)
                         .fontWeight(.semibold) +
-                    Text("$\(item.price)")
+                    Text(item.price == 0 ? "FREE" : "$\(String(format: "%.2f", item.price))") // Display "FREE" when price is 0
                         .font(.subheadline)
                 }
             }

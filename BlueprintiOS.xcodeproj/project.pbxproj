@@ -70,6 +70,7 @@
 		898413C62A829559007870FB /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 898413C52A829559007870FB /* FirebaseFirestoreSwift */; };
 		898413C82A829559007870FB /* FirebaseInstallations in Frameworks */ = {isa = PBXBuildFile; productRef = 898413C72A829559007870FB /* FirebaseInstallations */; };
 		898413CA2A829559007870FB /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 898413C92A829559007870FB /* FirebaseStorage */; };
+		89FED4062A86A89B00B61F75 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FED4052A86A89B00B61F75 /* ImagePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -151,6 +152,7 @@
 		8959F7792A7D5BF300AB3F5C /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		8959F77B2A7D8D1E00AB3F5C /* SearchNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNavigationController.swift; sourceTree = "<group>"; };
 		8959F77F2A7DCD8E00AB3F5C /* SubscriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionViewController.swift; sourceTree = "<group>"; };
+		89FED4052A86A89B00B61F75 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,9 +263,9 @@
 			isa = PBXGroup;
 			children = (
 				8959F7662A7D47A400AB3F5C /* InventoryFormVM.swift */,
+				8959F7512A7D3DFA00AB3F5C /* InventoryFormView.swift */,
 				8959F76E2A7D4CFC00AB3F5C /* InventoryListVM.swift */,
 				8959F7642A7D478400AB3F5C /* InventoryListView.swift */,
-				8959F7512A7D3DFA00AB3F5C /* InventoryFormView.swift */,
 			);
 			path = Upload;
 			sourceTree = "<group>";
@@ -359,6 +361,7 @@
 			isa = PBXGroup;
 			children = (
 				8959F7752A7D4FE300AB3F5C /* String+Extension.swift */,
+				89FED4052A86A89B00B61F75 /* ImagePicker.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -535,6 +538,7 @@
 				8959F7142A7D3AA300AB3F5C /* FirebaseStorageHelper.swift in Sources */,
 				8959F7522A7D3DFA00AB3F5C /* InventoryFormView.swift in Sources */,
 				8959F7292A7D3C2A00AB3F5C /* DeleteContentTableViewCell.swift in Sources */,
+				89FED4062A86A89B00B61F75 /* ImagePicker.swift in Sources */,
 				8959F77C2A7D8D1E00AB3F5C /* SearchNavigationController.swift in Sources */,
 				8959F7242A7D3C0A00AB3F5C /* ContentDescriptionTableViewCell.swift in Sources */,
 				8959F73F2A7D3CDD00AB3F5C /* PrivacyPolicyViewController.swift in Sources */,
